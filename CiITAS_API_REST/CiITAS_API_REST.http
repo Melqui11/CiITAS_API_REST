@@ -1,0 +1,6 @@
+@CiITAS_API_REST_HostAddress = http://localhost:5077
+
+GET {{CiITAS_API_REST_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
