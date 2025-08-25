@@ -5,8 +5,7 @@ namespace CiITAS_API_REST.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ValuesController1 : ControllerBase
     {
-//COMENTARIO PARA COMMIT DE PRUEBA 
     }
 }
