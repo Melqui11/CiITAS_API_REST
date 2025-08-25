@@ -3,8 +3,8 @@ name: CI - Validación de Pull Request
 on:
   pull_request:
     branches:
-      - main
-      - develop
+      - master
+      
 
 jobs:
   build-and-test:
