@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CiITAS_API_REST", "CiITAS_API_REST\CiITAS_API_REST.csproj", "{1A9A2C85-B0D0-4CA5-BC50-27A5B49A6D6F}"
 EndProject
