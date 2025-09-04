@@ -10,7 +10,7 @@ using System.Text;
 
 namespace CiITAS_API_REST.Controllers
 {
-    [Route("api/citasApi")]
+    [Route("api/citasApi/")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
@@ -95,6 +95,33 @@ namespace CiITAS_API_REST.Controllers
 
 
                 }
+            }
+        }
+        //Empezar aqui 
+
+        [HttpPost("createUser")]
+
+        public async Task<IActionResult> CreateUser([FromBody] createUser model)
+        {
+            try
+            {
+                var result = await _context.Database.ExecuteSqlRawAsync(
+                    //Corregir con linq
+                    //Hacer pruebas con pantalla
+                    "EXEC createUser @P_name = {0}, @P_last_name = {1}, @P_second_last_name = {2}, @P_email = {3}, @P_password = {4}, @P_phone_number = {5}",
+                    model.NAME,
+                    model.LAST_NAME,
+                    model.SECOND_LAST_NAME,
+                    model.EMAIL,
+                    model.PASSWORD,
+                    model.PHONE_NUMBER
+                );
+
+                return Ok(new { message = "Usuario creado correctamente" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
         }
     }
