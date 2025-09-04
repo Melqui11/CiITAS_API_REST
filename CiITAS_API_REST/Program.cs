@@ -1,12 +1,13 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var key = "Only_PasswORD_For_Citas_Project_for_development_enviroments"; 
+var key = "Only_PasswORD_For_Citas_Project_for_development_enviroments";
 
+// ✅ Configuración de Autenticación JWT
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -24,27 +25,40 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// ✅ Configuración de Base de Datos
 builder.Services.AddDbContext<AppDbContext>(options =>
-
-
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add services to the container.
+// ✅ Configuración de CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy
+            .AllowAnyMethod() // Permite GET, POST, PUT, DELETE, OPTIONS
+            .AllowAnyHeader() // Permite Content-Type y otros headers
+            .SetIsOriginAllowed(_ => true); // Permite cualquier origen (localhost, 127.0.0.1, etc)
+    });
+});
 
+// ✅ Otros servicios
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ✅ Configuración del pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+// ✅ CORS debe ir ANTES de Authentication/Authorization
+app.UseCors("AllowAll");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
