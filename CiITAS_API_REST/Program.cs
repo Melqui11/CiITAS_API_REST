@@ -58,6 +58,8 @@ if (app.Environment.IsDevelopment())
 // ✅ CORS debe ir ANTES de Authentication/Authorization
 app.UseCors("AllowAll");
 
+app.UseSafeRequestLogging();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
